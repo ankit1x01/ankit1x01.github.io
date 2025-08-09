@@ -557,8 +557,9 @@
 
         @media (max-width: 768px) {
         .terminal-container {
-            margin: 10px;
-            border-radius: 4px;
+                    margin: 0;
+                    border-radius: 0;
+                    width:100%;
         }
         
         .terminal-body {
@@ -575,9 +576,12 @@
             grid-template-columns: 1fr;
         }
     .nav-toggle { display:inline-block; }
-    .command-nav { display:none; }
+                .command-nav { display:none; width:100%; }
     .command-nav.open { display:flex; }
     .live-terminal { max-height:160px; }
+                body, html { overflow-x:hidden; }
+                .header-ascii { font-size:10px; line-height:1.1; }
+                .header-ascii br { display:none; }
         }
 
         /* Slightly tighter mobile skills layout */
