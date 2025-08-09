@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <tit            <p class="muted">Alongside my development journey, I've cultivated a strong interest and growing expertise in cybersecurity—with practical knowledge in secure coding, ethical hacking, and Web Application Penetration Testing (WAPT). As an active bug bounty hunter, I continuously explore offensive security techniques to strengthen the security posture of every product I build.</p>e>About — Ankit Kushwaha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: radial-gradient(circle at 20% 20%, #fff8f1, #ffe9f5 40%, #e7f5ff 78%);
+      --bg-dark: radial-gradient(circle at 20% 20%, #111827, #111827 40%, #0f172a 78%);
+      --card:#ffffffcc;
+      --card-dark:#1e293bcc;
+      --border:rgba(20,20,35,0.08);
+      --border-dark:rgba(255,255,255,0.08);
+      --text:#374151;
+      --text-dark:#cfd8e3;
+      --muted:#6b7280;
+      --muted-dark:#94a3b8;
+      --accent: linear-gradient(90deg,#ff7d7d,#ffb347,#6dd5ed,#a779ff);
+      --accent-rotate: linear-gradient(90deg,#a779ff,#6dd5ed,#ffb347,#ff7d7d);
+      --pill:#ffffffaa;
+      --pill-dark:#334155aa;
+      --radius:18px;
+      --shadow:0 4px 24px -6px rgba(0,0,0,0.08),0 2px 8px -2px rgba(0,0,0,0.04);
+      --shadow-dark:0 4px 24px -6px rgba(0,0,0,0.6),0 2px 8px -2px rgba(0,0,0,0.5);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; background:var(--bg); font-family:inherit; color:var(--text); line-height:1.55; position:relative; overflow-x:hidden; transition:background .6s ease,color .4s ease; }
+    body.dark { background:var(--bg-dark); color:var(--text-dark); }
+    .noise { position:fixed; inset:0; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E"); mix-blend-mode:overlay; }
+    .blob { position:absolute; width:520px; height:520px; background:conic-gradient(from 0deg, #ffb347, #ff7d7d, #a779ff, #6dd5ed, #ffb347); filter:blur(140px) saturate(150%); opacity:.28; animation:spin 28s linear infinite; top:-160px; right:-120px; pointer-events:none; }
+    .blob.b2 { width:420px; height:420px; left:-140px; top:260px; animation:spin 36s linear reverse infinite; }
+    .blob.b3 { width:300px; height:300px; right:50%; top:60%; background:radial-gradient(circle,#ff9a9e,#fecfef,#fecfef,#ff9a9e); filter:blur(80px); opacity:.2; animation:float 24s ease-in-out infinite; }
+    .blob.b4 { width:240px; height:240px; left:70%; bottom:10%; background:linear-gradient(45deg,#a8edea,#fed6e3); filter:blur(60px); opacity:.25; animation:float 18s ease-in-out infinite reverse; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    @keyframes float { 0%,100% { transform:translate(0,0) scale(1); } 33% { transform:translate(30px,-20px) scale(1.1); } 66% { transform:translate(-20px,15px) scale(.9); } }
+    .container { width:100%; max-width:1080px; margin: 64px auto 120px; padding: 0 34px; position:relative; z-index:2; }
+    .card { background:var(--card); backdrop-filter: blur(18px) saturate(180%); border:1px solid var(--border); border-radius:var(--radius); padding:40px 42px 46px; box-shadow:var(--shadow); position:relative; overflow:hidden; animation:floatIn .7s cubic-bezier(.4,.8,.3,1) forwards; transition:transform .3s ease; }
+    .card:hover { transform:translateY(-2px) scale(1.002); }
+    body.dark .card { background:var(--card-dark); border-color:var(--border-dark); box-shadow:var(--shadow-dark); }
+    .card::before { content:""; position:absolute; inset:0; background:linear-gradient(130deg,rgba(255,255,255,0.55),rgba(255,255,255,0)); mix-blend-mode:overlay; pointer-events:none; opacity:.4; }
+    .card::after { content:""; position:absolute; top:-50%; right:-50%; width:200%; height:200%; background:conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255,255,255,0.15) 180deg, transparent 360deg); animation:shimmer 8s linear infinite; pointer-events:none; opacity:0; transition:opacity .6s; }
+    .card:hover::after { opacity:1; }
+    body.dark .card::before { background:linear-gradient(130deg,rgba(255,255,255,0.08),rgba(255,255,255,0)); }
+    @keyframes floatIn { from { transform:translateY(24px) scale(.96); opacity:0; } to { transform:translateY(0) scale(1); opacity:1; } }
+    @keyframes shimmer { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
+    header { display:flex; gap:28px; align-items:center; flex-wrap:wrap; }
+    .avatar { width:128px; height:128px; border-radius:28px; background:linear-gradient(135deg,#6dd5ed,#a779ff 55%,#ff7d7d); display:flex; align-items:center; justify-content:center; font-size:46px; color:#fff; font-weight:800; letter-spacing:.5px; position:relative; box-shadow:0 10px 30px -8px rgba(109,213,237,0.55), 0 4px 12px -2px rgba(167,121,255,0.55); cursor:pointer; transition:transform .8s cubic-bezier(.19,1,.22,1), filter .4s; overflow:hidden; }
+    .avatar::before { content:""; position:absolute; inset:0; background:linear-gradient(45deg,transparent,rgba(255,255,255,.4),transparent); transform:translateX(-100%); transition:transform .6s; }
+    .avatar:hover { transform:rotate(-8deg) scale(1.06); filter:brightness(1.07) contrast(1.05); }
+    .avatar:hover::before { transform:translateX(100%); }
+    .avatar::after { content:"✨"; position:absolute; top:-8px; right:-8px; font-size:16px; animation:twinkle 2s ease-in-out infinite; }
+    @keyframes twinkle { 0%,100% { opacity:.3; transform:scale(.8); } 50% { opacity:1; transform:scale(1.2); } }
+  h1 { margin:0 0 4px; font-size:clamp(2.1rem,3.2vw,2.8rem); font-weight:800; line-height:1.05; background:var(--accent); -webkit-background-clip:text; background-clip:text; color:transparent; animation:hue 12s linear infinite; background-size:300% 100%; }
+    @keyframes hue { 0%{background-position:0 50%;} 50%{background-position:100% 50%;} 100%{background-position:0 50%;} }
+    p.lead { margin:6px 0 0; color:var(--muted); font-size:1.05rem; font-weight:500; max-width:820px; }
+    body.dark p.lead { color:var(--muted-dark); }
+    .meta { display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
+    .pill { background:var(--pill); backdrop-filter:blur(6px); padding:9px 14px; border-radius:999px; font-size:13px; font-weight:500; letter-spacing:.3px; position:relative; overflow:hidden; color:#374151; display:flex; align-items:center; gap:6px; cursor:pointer; transition:all .4s cubic-bezier(.4,.0,.2,1); }
+    .pill:hover { transform:translateY(-3px) scale(1.05); box-shadow:0 8px 20px -6px rgba(0,0,0,.25); }
+    .pill:active { transform:translateY(0) scale(.98); }
+    body.dark .pill { background:var(--pill-dark); color:#e2e8f0; }
+    .pill::after { content:""; position:absolute; inset:0; background:linear-gradient(120deg,rgba(255,255,255,.85),rgba(255,255,255,0)); opacity:.35; mix-blend-mode:overlay; }
+    .pill:nth-child(1)::before { content:"🎯"; margin-right:4px; }
+    .pill:nth-child(2)::before { content:"🌍"; margin-right:4px; }
+    .pill:nth-child(3)::before { content:"⚡"; margin-right:4px; }
+    .grid { display:grid; grid-template-columns: minmax(0,1fr) 330px; gap:38px; margin-top:38px; align-items:start; }
+    .section { margin-bottom:34px; position:relative; }
+    h2 { margin:0 0 14px; font-size:1.05rem; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:#334155; position:relative; display:inline-flex; align-items:center; gap:8px; cursor:default; }
+    h2:hover { animation:bounce .6s ease-in-out; }
+    @keyframes bounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-4px); } }
+    body.dark h2 { color:#d5def0; }
+    h2::after { content:""; height:3px; width:48px; background:var(--accent-rotate); border-radius:4px; display:inline-block; animation:hue 14s linear infinite; }
+    h2::before { content:""; position:absolute; left:-8px; top:50%; transform:translateY(-50%); width:4px; height:4px; background:#ff7d7d; border-radius:50%; animation:pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity:.4; transform:translateY(-50%) scale(.8); } 50% { opacity:1; transform:translateY(-50%) scale(1.3); } }
+    ul { padding-left:20px; margin:8px 0 4px; display:grid; gap:6px; }
+    li { line-height:1.45; position:relative; transition:color .3s ease; cursor:default; }
+    li:hover { color:var(--accent); animation:wiggle .5s ease-in-out; }
+    li::before { content:"▸"; color:#a779ff; margin-right:8px; font-size:.8em; transition:transform .3s ease; }
+    li:hover::before { transform:translateX(4px); }
+    @keyframes wiggle { 0%,100% { transform:rotate(0deg); } 25% { transform:rotate(1deg); } 75% { transform:rotate(-1deg); } }
+    .skills { display:flex; flex-wrap:wrap; gap:10px; }
+    .skill { --c: var(--accent); position:relative; background: linear-gradient(120deg,#ffffffdd,#ffffffaa); border:1px solid rgba(0,0,0,0.06); padding:10px 14px; border-radius:14px; font-size:13px; font-weight:600; letter-spacing:.4px; cursor:pointer; overflow:hidden; color:#374151; transition:.45s; backdrop-filter:blur(6px); }
+    body.dark .skill { background:linear-gradient(120deg,#1e293b,#1e293b); border-color:#334155; color:#e2e8f0; }
+    .skill::before { content:""; position:absolute; inset:0; background:var(--c); opacity:0; mix-blend-mode:overlay; transition:.6s; }
+    .skill:hover { transform:translateY(-4px) scale(1.04); box-shadow:0 8px 22px -10px rgba(0,0,0,.4); }
+    .skill:hover::before { opacity:.55; }
+    .muted { color:var(--muted); font-size:14.5px; }
+    body.dark .muted { color:var(--muted-dark); }
+    .project { border:1px solid rgba(0,0,0,0.06); border-left:4px solid transparent; padding:14px 16px 15px; border-radius:14px; background:linear-gradient(135deg,#ffffffcc,#ffffffa0); backdrop-filter:blur(8px); position:relative; overflow:hidden; transition:all .5s cubic-bezier(.4,.0,.2,1); cursor:pointer; }
+    body.dark .project { background:linear-gradient(135deg,#1f2937cc,#1e293bcc); border-color:rgba(255,255,255,0.05); }
+    .project::before { content:""; position:absolute; inset:0; background:linear-gradient(130deg,rgba(255,255,255,.9),rgba(255,255,255,0)); mix-blend-mode:overlay; opacity:.3; pointer-events:none; }
+    .project::after { content:"→"; position:absolute; top:50%; right:16px; transform:translateY(-50%) translateX(20px); color:#a779ff; font-weight:bold; font-size:18px; opacity:0; transition:all .4s ease; }
+    .project strong { font-weight:600; color:#111827; transition:color .3s ease; }
+    body.dark .project strong { color:#f1f5f9; }
+    .project:hover { border-left-color:#a779ff; transform:translateY(-6px) scale(1.02); box-shadow:0 12px 32px -8px rgba(167,121,255,0.4); }
+    .project:hover::after { opacity:1; transform:translateY(-50%) translateX(0); }
+    .project:hover strong { color:#6366f1; text-decoration:underline; text-decoration-color:#a779ff; }
+    .contact a { color:#a779ff; font-weight:600; text-decoration:none; position:relative; }
+    .contact a::after { content:""; position:absolute; left:0; bottom:-3px; width:0; height:2px; background:linear-gradient(90deg,#a779ff,#6dd5ed); transition:.5s; }
+    .contact a:hover::after { width:100%; }
+    footer { margin-top:30px; text-align:center; color:var(--muted); font-size:13.5px; padding-top:22px; border-top:1px solid rgba(0,0,0,0.06); position:relative; }
+    body.dark footer { color:var(--muted-dark); border-top-color:#334155; }
+    .actions { position:absolute; top:14px; right:14px; display:flex; gap:10px; }
+    .theme-toggle { background:linear-gradient(120deg,#ffffffcc,#ffffff88); border:1px solid rgba(0,0,0,0.08); padding:8px 14px; border-radius:12px; cursor:pointer; font-size:13px; font-weight:600; letter-spacing:.4px; display:inline-flex; align-items:center; gap:6px; backdrop-filter:blur(8px); color:#374151; transition:all .4s cubic-bezier(.4,.0,.2,1); position:relative; overflow:hidden; }
+    .theme-toggle::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.8),transparent); transform:translateX(-100%); transition:transform .6s; }
+    .theme-toggle:hover::before { transform:translateX(100%); }
+    body.dark .theme-toggle { background:linear-gradient(120deg,#1e293b,#1e293b); border-color:#334155; color:#e2e8f0; }
+    .theme-toggle:hover { transform:translateY(-2px) scale(1.05); box-shadow:0 8px 20px -8px rgba(0,0,0,.4); }
+    .theme-toggle:active { transform:translateY(0) scale(.95); }
+    .sparkle { position:absolute; width:6px; height:6px; background:radial-gradient(circle,#fff,#ffd4fa,#ff9fd1); border-radius:50%; top:50%; left:50%; pointer-events:none; animation:pop .9s ease forwards; opacity:0; }
+    @keyframes pop { 0%{ transform:scale(.2) translate(-50%,-50%); opacity:0; } 40%{ opacity:1; } 100%{ transform:scale(1.6) translate(-50%,-50%); opacity:0; } }
+    ::selection { background:#a779ff; color:#fff; }
+    @media (max-width:980px) { .grid { grid-template-columns:1fr; gap:48px; } .avatar { width:112px; height:112px; font-size:40px; } .card { padding:34px 30px 42px; } .container{margin-top:46px;} }
+    @media (max-width:620px) { header { flex-direction:column; align-items:flex-start; } .meta { gap:8px; } .pill{font-size:12px;padding:8px 12px;} }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="blob"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+  <div class="container">
+    <div class="card">
+      <div class="actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙 Toggle</button>
+      </div>
+      <header>
+        <div class="avatar">AK</div>
+        <div>
+          <h1>Ankit Kushwaha</h1>
+          <p class="lead">Full Stack Developer | Bug Bounty Hunter | Cybersecurity Enthusiast | Traveller | Open‑Source Contributor | Mentor | Community Builder</p>
+          <div class="meta">
+            <div class="pill">Age: 26</div>
+            <div class="pill">Location: India (Mumbai / remote)</div>
+            <div class="pill">Tech: React · Next.js · Node.js · NestJS · Svelte · Angular · Vue · Python · Laravel · PHP</div>
+            <div class="pill">🏔️ Travel: Major parts of Himachal & beyond</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="grid">
+        <main>
+          <section class="section">
+            <h2>About me</h2>
+            <p class="muted">I’m a passionate and versatile Full Stack Developer with over 6 years of experience working across modern technologies like React, Next.js, Node.js, NestJS, Laravel, Python, Svelte, Angular, and Vue. I specialize in building scalable, secure, and high‑performance applications, with deep expertise in Maps, GeoJSON, and geospatial integrations.</p>
+            <p class="muted">Alongside my development journey, I’ve cultivated a strong interest and growing expertise in cybersecurity—with practical knowledge in secure coding, ethical hacking, and Web Application Penetration Testing (WAPT). I actively explore offensive security techniques to strengthen the security posture of every product I build.</p>
+            <p class="muted">Beyond my core work, I’m a committed open‑source contributor, frequent volunteer, and have experience organizing and mentoring at tech meetups and cybersecurity conferences. I strongly believe in giving back to the community—whether by guiding early‑career developers, contributing to meaningful projects, or supporting knowledge‑sharing events.</p>
+            <p class="muted">I’m on a mission to bridge the gap between development and security, while nurturing a collaborative and secure tech ecosystem.</p>
+          </section>
+
+          <section class="section">
+            <h2>Current Roles</h2>
+            <ul>
+              <li>Senior Software Engineer & Full Stack Team Lead @ Techstalwarts</li>
+              <li>Core Team @ BSides Mumbai</li>
+              <li>Mentor & Community Contributor</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2>Notable projects</h2>
+            <div style="display:grid;gap:12px">
+              <div class="project">
+                <strong>Homestay booking platform</strong>
+                <div class="muted">Next.js frontend, PHP admin panel, commission‑based post‑paid model. Partnered with a Kolkata‑based tourism business; owner of 30% equity during initial stage.</div>
+              </div>
+              <div class="project">
+                <strong>AI trip planner (prototype)</strong>
+                <div class="muted">Personal project: personalized itineraries, weather‑aware suggestions, budgeting, and packing lists — frontend in Next.js, planning to connect ML/LLM APIs for recommendations.</div>
+              </div>
+              <div class="project">
+                <strong>PostgreSQL / Performance Farm UI (GSoC proposal)</strong>
+                <div class="muted">Submitted a GSoC proposal to build a web UI for navigating PostgreSQL performance test results.</div>
+              </div>
+              <div class="project">
+                <strong>Pentest coaching & lab setup</strong>
+                <div class="muted">Run hands‑on pentest coaching with ~20 lab laptops and multiple Wi‑Fi networks for training students.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>What I care about</h2>
+            <ul>
+              <li>Bridging the gap between development and security</li>
+              <li>Meaningful product design that balances simplicity and power</li>
+              <li>Exploring India's hidden cultures, treks, and transformational travel experiences</li>
+              <li>Open source — contributing to tools that help other developers</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2>Travel Journey & Cultural Exploration</h2>
+            <p class="muted">I have covered major parts of <strong>Himachal Pradesh</strong> and explored diverse cities across India including <strong>Delhi, Kolkata, Odisha, Raipur, Ranchi (Jharkhand), Vrindavan, Goa</strong> and so many more incredible destinations. Each journey deepens my understanding of India's rich cultural tapestry and transforms my perspective.</p>
+            <p class="muted">This exploration continues as I immerse myself in every corner of India, experiencing its authentic cultures, hidden gems, and spiritual essence. After completing this comprehensive journey through India and its diverse heritage, my wanderlust will expand beyond borders to explore every part of the world — seeking transformational experiences and cultural connections across continents.</p>
+          </section>
+        </main>
+
+        <aside>
+          <section class="section">
+            <h2>Skills</h2>
+            <div class="skills">
+              <span class="skill">React</span>
+              <span class="skill">Next.js</span>
+              <span class="skill">Node.js</span>
+              <span class="skill">NestJS</span>
+              <span class="skill">Svelte</span>
+              <span class="skill">Angular</span>
+              <span class="skill">Vue</span>
+              <span class="skill">Python</span>
+              <span class="skill">Laravel</span>
+              <span class="skill">PHP</span>
+              <span class="skill">Flutter</span>
+              <span class="skill">React Native</span>
+              <span class="skill">Bug Bounty</span>
+              <span class="skill">Pentesting</span>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Quick facts</h2>
+            <ul>
+              <li>CodeNomad 👨‍💻 — loves solving problems in code</li>
+              <li>Bug Hunter � — securing the digital world one vulnerability at a time</li>
+              <li>Cultural Explorer 🏔️ — journeying through India's diverse heritage</li>
+              <li>Spiritual Seeker 🌄 — finding perspective through transformational travel</li>
+              <li>From Bhopal to Beyond 🗺️⛺ — India today, world tomorrow</li>
+            </ul>
+          </section>
+
+          <section class="section contact">
+            <h2>Contact</h2>
+            <p class="muted">Let’s connect or collaborate:</p>
+            <p><a href="https://www.linkedin.com/in/ankit1x01/">LinkedIn</a> · <a href="https://www.instagram.com/ankit1x01/">Instagram</a> · <a href="mailto:you@example.com">Email</a></p>
+          </section>
+        </aside>
+      </div>
+
+      <footer>
+        Built with code, coffee, secure thinking & playful gradients — Ankit Kushwaha.
+      </footer>
+    </div>
+  </div>
+  <script>
+    // Theme toggle with persistence
+    const body = document.body;
+    const toggleBtn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('theme');
+    if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      body.classList.add('dark');
+      toggleBtn.textContent = '☀️ Light';
+    }
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      const dark = body.classList.contains('dark');
+      toggleBtn.textContent = dark ? '☀️ Light' : '🌙 Dark';
+      localStorage.setItem('theme', dark ? 'dark':'light');
+      burst(toggleBtn);
+    });
+
+    // Enhanced skill interactions with sound simulation
+    const skills = document.querySelectorAll('.skill');
+    const palettes = [
+      ['#ff7d7d','#ffb347'],
+      ['#6dd5ed','#a779ff'],
+      ['#34d399','#10b981'],
+      ['#f472b6','#fb7185'],
+      ['#6366f1','#8b5cf6'],
+      ['#f59e0b','#ec4899'],
+      ['#14b8a6','#3b82f6']
+    ];
+    skills.forEach((s,i) => {
+      s.addEventListener('mouseenter', () => {
+        const p = palettes[Math.floor(Math.random()*palettes.length)];
+        s.style.setProperty('--c', `linear-gradient(120deg,${p[0]},${p[1]})`);
+        s.style.animation = 'skillPop .4s ease-out forwards';
+      });
+      s.addEventListener('mouseleave', () => {
+        s.style.animation = '';
+      });
+      s.addEventListener('click', () => ripple(s));
+    });
+
+    // Add CSS for skill pop animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes skillPop {
+        0% { transform:translateY(-4px) scale(1.04); }
+        50% { transform:translateY(-8px) scale(1.08); }
+        100% { transform:translateY(-4px) scale(1.04); }
+      }
+      @keyframes ripple {
+        0% { transform:scale(0); opacity:1; }
+        100% { transform:scale(4); opacity:0; }
+      }
+      .ripple-effect { position:absolute; border-radius:50%; background:rgba(167,121,255,0.6); pointer-events:none; animation:ripple .6s ease-out forwards; }
+    `;
+    document.head.appendChild(style);
+
+    function ripple(el) {
+      const rect = el.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const rippleEl = document.createElement('span');
+      rippleEl.className = 'ripple-effect';
+      rippleEl.style.width = rippleEl.style.height = size + 'px';
+      rippleEl.style.left = '50%';
+      rippleEl.style.top = '50%';
+      rippleEl.style.transform = 'translate(-50%, -50%) scale(0)';
+      el.appendChild(rippleEl);
+      setTimeout(() => rippleEl.remove(), 600);
+    }
+
+    // Avatar sparkle burst with enhanced effects
+    const avatar = document.querySelector('.avatar');
+    avatar.addEventListener('click', (e) => {
+      burst(avatar);
+      avatar.style.animation = 'avatarBounce .6s cubic-bezier(.68,-0.55,.265,1.55)';
+      setTimeout(() => avatar.style.animation = '', 600);
+    });
+
+    // Enhanced burst function with more particles
+    function burst(el){
+      for(let i=0;i<12;i++){
+        const span=document.createElement('span');
+        span.className='sparkle';
+        const r=(Math.random()*120-60);
+        const rr=(Math.random()*120-60);
+        const delay = Math.random() * 200;
+        span.style.transform=`translate(${r}px,${rr}px)`;
+        span.style.animationDelay = delay + 'ms';
+        const hue = Math.random() * 360;
+        span.style.background = `radial-gradient(circle,hsl(${hue},70%,60%),hsl(${hue+60},80%,70%))`;
+        el.appendChild(span);
+        setTimeout(()=>span.remove(),1100);
+      }
+    }
+
+    // Add avatar bounce animation
+    const avatarStyle = document.createElement('style');
+    avatarStyle.textContent = `
+      @keyframes avatarBounce {
+        0% { transform:rotate(-8deg) scale(1.06); }
+        30% { transform:rotate(12deg) scale(1.15); }
+        60% { transform:rotate(-15deg) scale(1.2); }
+        100% { transform:rotate(-8deg) scale(1.06); }
+      }
+    `;
+    document.head.appendChild(avatarStyle);
+  </script>
+</body>
+</html>
