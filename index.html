@@ -335,28 +335,40 @@
     .fade-in {
       opacity: 0;
       animation: fadeIn 1s forwards;
+      animation-delay: 0.2s;
     }
 
     @keyframes fadeIn {
+      from { opacity: 0; }
       to { opacity: 1; }
     }
 
     .slide-in-left {
-      transform: translateX(-100%);
+      opacity: 0;
+      transform: translateX(-50px);
       animation: slideInLeft 0.8s ease-out forwards;
+      animation-delay: 0.3s;
     }
 
     @keyframes slideInLeft {
-      to { transform: translateX(0); }
+      to { 
+        opacity: 1;
+        transform: translateX(0); 
+      }
     }
 
     .slide-in-right {
-      transform: translateX(100%);
+      opacity: 0;
+      transform: translateX(50px);
       animation: slideInRight 0.8s ease-out forwards;
+      animation-delay: 0.3s;
     }
 
     @keyframes slideInRight {
-      to { transform: translateX(0); }
+      to { 
+        opacity: 1;
+        transform: translateX(0); 
+      }
     }
 
     .pulse {
@@ -720,28 +732,8 @@ community through knowledge sharing and meaningful project contributions.
 </div>
         </div>
       </div>
-        <div class="output">
-<span class="section-title">Travel Journey & Cultural Exploration:</span>
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-<div class="travel-info">
-🏔️ <span class="highlight">Covered major parts of Himachal Pradesh</span>
-🗺️ <span class="highlight">Explored diverse cities:</span> Delhi, Kolkata, Odisha, Raipur, 
-   Ranchi (Jharkhand), Vrindavan, Goa & many more incredible destinations
 
-Each journey deepens my understanding of India's rich cultural tapestry and 
-transforms my perspective. This exploration continues as I immerse myself in 
-every corner of India, experiencing authentic cultures, hidden gems, and 
-spiritual essence.
-
-<span class="highlight">Future Goal:</span> After completing this comprehensive journey through India 
-and its diverse heritage, my wanderlust will expand beyond borders to explore 
-every part of the world—seeking transformational experiences and cultural 
-connections across continents.
-</div>
-        </div>
-      </div>
-
-      <div class="section fade-in slide-in-left">
+      <div class="section fade-in slide-in-right">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">grep -r "travel" ~/journey/</span>
         <div class="output">
 <span class="section-title">Travel Journey & Cultural Exploration:</span>
@@ -886,20 +878,21 @@ connections across continents.
       const terminalBody = document.querySelector('.terminal-body');
       const sections = document.querySelectorAll('.section');
       
-      terminalBody.style.opacity = '0';
+      // Initial state
+      terminalBody.style.opacity = '1'; // Make immediately visible
       
-      // Boot sequence
-      setTimeout(() => {
-        terminalBody.style.transition = 'opacity 1s ease-in';
-        terminalBody.style.opacity = '1';
+      // Progressive section reveal with staggered timing
+      sections.forEach((section, index) => {
+        // Remove any conflicting opacity settings
+        section.style.opacity = '1';
         
-        // Progressive section reveal
-        sections.forEach((section, index) => {
-          setTimeout(() => {
-            section.style.animationDelay = `${index * 0.3}s`;
-          }, index * 200);
-        });
-      }, 500);
+        // Set staggered animation delays
+        const animationDelay = (index * 0.1) + 's';
+        section.style.animationDelay = animationDelay;
+        
+        // Ensure animations trigger
+        section.style.animationFillMode = 'both';
+      });
     });
 
     // Interactive skill items with click effects
@@ -1059,6 +1052,18 @@ connections across continents.
           link.style.textShadow = 'none';
         });
       });
+
+      // Fallback: Ensure all sections are visible after 3 seconds
+      setTimeout(() => {
+        const allSections = document.querySelectorAll('.section');
+        allSections.forEach(section => {
+          if (section.style.opacity !== '1') {
+            section.style.opacity = '1';
+            section.style.transform = 'translateX(0)';
+            section.style.transition = 'all 0.5s ease';
+          }
+        });
+      }, 3000);
     });
   </script>
 </body>
