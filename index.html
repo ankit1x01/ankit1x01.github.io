@@ -66,6 +66,18 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .control:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .control:active {
+      transform: scale(0.9);
     }
 
     .close { background: var(--red); }
@@ -136,6 +148,33 @@
     .skill-item {
       color: var(--purple);
       font-weight: 500;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-item:hover {
+      background: rgba(199, 136, 255, 0.1);
+      transform: translateX(10px) scale(1.05);
+      color: var(--cyan);
+    }
+
+    .skill-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(199, 136, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .skill-item:hover::before {
+      left: 100%;
     }
 
     .projects-list {
@@ -145,6 +184,34 @@
     .project-item {
       margin-bottom: 12px;
       padding-left: 16px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      padding: 8px 16px;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .project-item:hover {
+      background: rgba(0, 255, 65, 0.05);
+      border-left-color: var(--green);
+      transform: translateX(10px);
+      box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+    }
+
+    .project-item::after {
+      content: '→';
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      color: var(--green);
+    }
+
+    .project-item:hover::after {
+      opacity: 1;
     }
 
     .project-name {
@@ -184,11 +251,137 @@
     .cursor {
       background: var(--green);
       animation: blink 1s infinite;
+      padding: 0 4px;
+      display: inline-block;
     }
 
     @keyframes blink {
       0%, 50% { opacity: 1; }
       51%, 100% { opacity: 0; }
+    }
+
+    .typing-effect {
+      overflow: hidden;
+      border-right: 3px solid var(--green);
+      white-space: nowrap;
+      margin: 0 auto;
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--green); }
+    }
+
+    .glitch {
+      animation: glitch 2s infinite;
+      position: relative;
+    }
+
+    .glitch:before,
+    .glitch:after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .glitch:before {
+      animation: glitch-top 2s infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+      color: var(--cyan);
+    }
+
+    .glitch:after {
+      animation: glitch-bottom 2.5s infinite;
+      clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+      color: var(--red);
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 0 0 5px var(--green); }
+      10% { text-shadow: 2px 2px var(--red), -2px -2px var(--cyan); }
+      20% { text-shadow: 0 0 5px var(--green); }
+      30% { text-shadow: -2px 2px var(--red), 2px -2px var(--cyan); }
+      40% { text-shadow: 0 0 5px var(--green); }
+      100% { text-shadow: 0 0 5px var(--green); }
+    }
+
+    @keyframes glitch-top {
+      0% { transform: translate(0); }
+      10% { transform: translate(-2px, -2px); }
+      20% { transform: translate(0); }
+      30% { transform: translate(2px, -2px); }
+      40% { transform: translate(0); }
+      100% { transform: translate(0); }
+    }
+
+    @keyframes glitch-bottom {
+      0% { transform: translate(0); }
+      10% { transform: translate(2px, 2px); }
+      20% { transform: translate(0); }
+      30% { transform: translate(-2px, 2px); }
+      40% { transform: translate(0); }
+      100% { transform: translate(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .slide-in-left {
+      transform: translateX(-100%);
+      animation: slideInLeft 0.8s ease-out forwards;
+    }
+
+    @keyframes slideInLeft {
+      to { transform: translateX(0); }
+    }
+
+    .slide-in-right {
+      transform: translateX(100%);
+      animation: slideInRight 0.8s ease-out forwards;
+    }
+
+    @keyframes slideInRight {
+      to { transform: translateX(0); }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .hover-glow:hover {
+      text-shadow: 0 0 10px var(--green), 0 0 20px var(--green);
+      transition: text-shadow 0.3s ease;
+    }
+
+    .floating {
+      animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
     }
 
     .matrix-mode {
@@ -227,7 +420,12 @@
 
     .matrix-toggle:hover {
       background: var(--border);
-      box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+      box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+      transform: scale(1.05);
+    }
+
+    .matrix-toggle:active {
+      transform: scale(0.95);
     }
 
     .status-bar {
@@ -289,13 +487,13 @@
     </div>
 
     <div class="terminal-body">
-      <div class="header-ascii">
+      <div class="header-ascii glitch floating" data-text="ANKIT KUSHWAHA">
     ▄▀█ █▄░█ █▄▀ █ ▀█▀   █▄▀ █░█ █▀ █░█ █░█░█ ▄▀█ █░█ ▄▀█
     █▀█ █░▀█ █░█ █ ░█░   █░█ █▄█ ▄█ █▀█ ▀▄▀▄▀ █▀█ █▀█ █▀█
       </div>
 
-      <div class="section">
-        <span class="prompt">ankit@portfolio:~$</span> <span class="command">whoami</span>
+      <div class="section fade-in">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command typing-effect">whoami</span>
         <div class="output">
 <span class="highlight">Full Stack Developer</span> | <span class="highlight">Bug Bounty Hunter</span> | <span class="highlight">AI Engineer</span> | <span class="highlight">Traveller</span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -309,8 +507,8 @@
         </div>
       </div>
 
-      <div class="section">
-        <span class="prompt">ankit@portfolio:~$</span> <span class="command">cat about.txt</span>
+      <div class="section fade-in slide-in-left">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">cat about.txt</span>
         <div class="output">
 <span class="section-title">About Me:</span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -336,8 +534,8 @@ community through knowledge sharing and meaningful project contributions.
         </div>
       </div>
 
-      <div class="section">
-        <span class="prompt">ankit@portfolio:~$</span> <span class="command">ls -la skills/</span>
+      <div class="section fade-in slide-in-right">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">ls -la skills/</span>
         <div class="output">
 <span class="section-title">Technical Skills:</span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -358,8 +556,8 @@ community through knowledge sharing and meaningful project contributions.
         </div>
       </div>
 
-      <div class="section">
-        <span class="prompt">ankit@portfolio:~$</span> <span class="command">cat projects.json | jq '.'</span>
+      <div class="section fade-in">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">cat projects.json | jq '.'</span>
         <div class="output">
 <span class="section-title">Notable Projects:</span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -403,8 +601,8 @@ community through knowledge sharing and meaningful project contributions.
         </div>
       </div>
 
-      <div class="section">
-        <span class="prompt">ankit@portfolio:~$</span> <span class="command">cat roles.txt</span>
+      <div class="section fade-in slide-in-left">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">cat roles.txt</span>
         <div class="output">
 <span class="section-title">Current Roles:</span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -417,8 +615,111 @@ community through knowledge sharing and meaningful project contributions.
         </div>
       </div>
 
-      <div class="section">
-        <span class="prompt">ankit@portfolio:~$</span> <span class="command">grep -r "travel" ~/journey/</span>
+      <div class="section fade-in slide-in-right">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">cat future_goals.md</span>
+        <div class="output">
+<span class="section-title">Future Career Goals:</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 <span class="highlight">Solution Architect Role</span> - Design end-to-end, scalable, and 
+   cloud-ready systems with enterprise-grade architecture patterns
+
+🔐 <span class="highlight">Security Architect Role</span> - Embed security at every layer — 
+   application, network, and infrastructure with zero-trust principles
+
+☁️ <span class="highlight">Cloud Platform Mastery</span> - AWS, Azure, GCP with enterprise 
+   integration and multi-cloud strategies
+
+📜 <span class="highlight">Target Certifications:</span>
+├─ AWS Certified Solutions Architect
+├─ Google Cloud Professional Cloud Architect
+├─ OSCP (Offensive Security Certified Professional)
+├─ CRT (Certified Red Team Professional)
+├─ OSSE (Offensive Security Skilled Expert)
+├─ TOGAF 10 (Enterprise Architecture Framework)
+└─ Kubernetes Administrator (CKA)
+        </div>
+      </div>
+
+      <div class="section fade-in slide-in-left">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">ls -la architecture_skills/</span>
+        <div class="output">
+<span class="section-title">Architecture & Design Skills:</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<div class="skills-grid">
+<span class="skill-item">├─ System Design (Microservices)</span>
+<span class="skill-item">├─ Event-Driven Architecture</span>
+<span class="skill-item">├─ REST/GraphQL APIs</span>
+<span class="skill-item">├─ Cloud Architecture (AWS/Azure/GCP)</span>
+<span class="skill-item">├─ Database Design & Optimization</span>
+<span class="skill-item">├─ PostgreSQL & MongoDB</span>
+<span class="skill-item">├─ Redis & Caching Strategies</span>
+<span class="skill-item">├─ API Gateway & Middleware</span>
+<span class="skill-item">├─ Infrastructure as Code</span>
+<span class="skill-item">├─ Terraform & CloudFormation</span>
+<span class="skill-item">├─ Container Orchestration</span>
+<span class="skill-item">└─ Kubernetes & Docker</span>
+</div>
+        </div>
+      </div>
+
+      <div class="section fade-in slide-in-right">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">cat security_architecture.txt</span>
+        <div class="output">
+<span class="section-title">Security Architecture Skills:</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<div class="skills-grid">
+<span class="skill-item">├─ Security Architecture Design</span>
+<span class="skill-item">├─ Threat Modeling & Risk Assessment</span>
+<span class="skill-item">├─ Identity & Access Management</span>
+<span class="skill-item">├─ OAuth2, SAML & SSO</span>
+<span class="skill-item">├─ OWASP Top 10 Implementation</span>
+<span class="skill-item">├─ Secure Coding Practices</span>
+<span class="skill-item">├─ Cloud Security Architecture</span>
+<span class="skill-item">├─ Zero Trust Network Design</span>
+<span class="skill-item">├─ Data Encryption & PKI</span>
+<span class="skill-item">├─ Compliance Frameworks</span>
+<span class="skill-item">├─ Security Audit & Logging</span>
+<span class="skill-item">└─ Penetration Testing</span>
+</div>
+        </div>
+      </div>
+
+      <div class="section fade-in slide-in-left">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">find ./projects -name "*architecture*" -type f</span>
+        <div class="output">
+<span class="section-title">Architecture-Focused Projects:</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<div class="projects-list">
+<div class="project-item">
+├─ <span class="project-name">Geospatial Booking Platform Architecture</span>
+<div class="project-desc">   Designed modular, cloud-ready architecture in Next.js ensuring 
+   scalability and secure API integration between frontend and admin systems.
+   Implemented microservices pattern with event-driven communication.</div>
+</div>
+
+<div class="project-item">
+├─ <span class="project-name">High-Concurrency RTO System</span>
+<div class="project-desc">   Architected Java backend with secure WebSocket communication,
+   role-based access control, and performance optimization for 1000+ concurrent
+   users. Implemented distributed caching and load balancing strategies.</div>
+</div>
+
+<div class="project-item">
+├─ <span class="project-name">Secure VMS SDK Integration</span>
+<div class="project-desc">   Implemented secure video data pipeline with end-to-end encryption,
+   granular access control, comprehensive audit logging, and high availability
+   architecture. Designed for enterprise-grade security compliance.</div>
+</div>
+
+<div class="project-item">
+└─ <span class="project-name">Cloud-Native Security Framework</span>
+<div class="project-desc">   Built enterprise security architecture with zero-trust principles,
+   automated threat detection, and multi-cloud deployment strategies.
+   Integrated IAM, encryption, and compliance monitoring.</div>
+</div>
+</div>
+        </div>
+      </div>
         <div class="output">
 <span class="section-title">Travel Journey & Cultural Exploration:</span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -440,8 +741,31 @@ connections across continents.
         </div>
       </div>
 
-      <div class="section">
-        <span class="prompt">ankit@portfolio:~$</span> <span class="command">echo $VALUES</span>
+      <div class="section fade-in slide-in-left">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">grep -r "travel" ~/journey/</span>
+        <div class="output">
+<span class="section-title">Travel Journey & Cultural Exploration:</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<div class="travel-info">
+🏔️ <span class="highlight">Covered major parts of Himachal Pradesh</span>
+🗺️ <span class="highlight">Explored diverse cities:</span> Delhi, Kolkata, Odisha, Raipur, 
+   Ranchi (Jharkhand), Vrindavan, Goa & many more incredible destinations
+
+Each journey deepens my understanding of India's rich cultural tapestry and 
+transforms my perspective. This exploration continues as I immerse myself in 
+every corner of India, experiencing authentic cultures, hidden gems, and 
+spiritual essence.
+
+<span class="highlight">Future Goal:</span> After completing this comprehensive journey through India 
+and its diverse heritage, my wanderlust will expand beyond borders to explore 
+every part of the world—seeking transformational experiences and cultural 
+connections across continents.
+</div>
+        </div>
+      </div>
+
+      <div class="section fade-in">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">echo $VALUES</span>
         <div class="output">
 <span class="section-title">What I Care About:</span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -454,8 +778,8 @@ connections across continents.
         </div>
       </div>
 
-      <div class="section">
-        <span class="prompt">ankit@portfolio:~$</span> <span class="command">netstat -contact</span>
+      <div class="section fade-in slide-in-left">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">netstat -contact</span>
         <div class="output">
 <span class="section-title">Contact Information:</span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -468,8 +792,8 @@ connections across continents.
         </div>
       </div>
 
-      <div class="section">
-        <span class="prompt">ankit@portfolio:~$</span> <span class="cursor"> </span>
+      <div class="section pulse">
+        <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="cursor">█</span>
       </div>
     </div>
 
@@ -480,7 +804,7 @@ connections across continents.
   </div>
 
   <script>
-    // Matrix rain effect
+    // Enhanced Matrix rain effect with more particles
     function createMatrixRain() {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
@@ -491,19 +815,19 @@ connections across continents.
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       
-      const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+      const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
       const matrixArray = matrix.split("");
       
-      const fontSize = 10;
+      const fontSize = 14;
       const columns = canvas.width / fontSize;
       const drops = [];
       
       for (let x = 0; x < columns; x++) {
-        drops[x] = 1;
+        drops[x] = Math.random() * -100;
       }
       
       function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         ctx.fillStyle = '#00ff41';
@@ -511,7 +835,15 @@ connections across continents.
         
         for (let i = 0; i < drops.length; i++) {
           const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+          
+          // Add glow effect
+          ctx.shadowColor = '#00ff41';
+          ctx.shadowBlur = 10;
+          
           ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+          
+          // Reset shadow for performance
+          ctx.shadowBlur = 0;
           
           if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
             drops[i] = 0;
@@ -520,15 +852,21 @@ connections across continents.
         }
       }
       
-      return setInterval(draw, 35);
+      return setInterval(draw, 50);
     }
 
-    // Matrix mode toggle
+    // Matrix mode toggle with sound effect simulation
     let matrixInterval;
     const matrixToggle = document.getElementById('matrixToggle');
     const matrixMode = document.getElementById('matrixMode');
     
     matrixToggle.addEventListener('click', () => {
+      // Visual feedback
+      matrixToggle.style.transform = 'scale(0.9)';
+      setTimeout(() => {
+        matrixToggle.style.transform = 'scale(1)';
+      }, 100);
+
       if (matrixMode.classList.contains('active')) {
         matrixMode.classList.remove('active');
         matrixToggle.textContent = 'Matrix Mode';
@@ -543,26 +881,184 @@ connections across continents.
       }
     });
 
-    // Terminal boot animation
+    // Enhanced terminal boot animation with progressive reveal
     document.addEventListener('DOMContentLoaded', () => {
       const terminalBody = document.querySelector('.terminal-body');
+      const sections = document.querySelectorAll('.section');
+      
       terminalBody.style.opacity = '0';
       
+      // Boot sequence
       setTimeout(() => {
         terminalBody.style.transition = 'opacity 1s ease-in';
         terminalBody.style.opacity = '1';
-      }, 300);
+        
+        // Progressive section reveal
+        sections.forEach((section, index) => {
+          setTimeout(() => {
+            section.style.animationDelay = `${index * 0.3}s`;
+          }, index * 200);
+        });
+      }, 500);
     });
 
-    // Typing sound simulation (visual feedback)
-    document.addEventListener('keydown', () => {
+    // Interactive skill items with click effects
+    document.addEventListener('DOMContentLoaded', () => {
+      const skillItems = document.querySelectorAll('.skill-item');
+      
+      skillItems.forEach(skill => {
+        skill.addEventListener('click', () => {
+          // Create ripple effect
+          const ripple = document.createElement('span');
+          ripple.style.position = 'absolute';
+          ripple.style.borderRadius = '50%';
+          ripple.style.background = 'rgba(199, 136, 255, 0.6)';
+          ripple.style.transform = 'scale(0)';
+          ripple.style.animation = 'ripple 0.6s linear';
+          ripple.style.left = '50%';
+          ripple.style.top = '50%';
+          ripple.style.width = '20px';
+          ripple.style.height = '20px';
+          ripple.style.marginLeft = '-10px';
+          ripple.style.marginTop = '-10px';
+          
+          skill.style.position = 'relative';
+          skill.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.remove();
+          }, 600);
+        });
+      });
+    });
+
+    // Interactive project items with hover sound simulation
+    document.addEventListener('DOMContentLoaded', () => {
+      const projectItems = document.querySelectorAll('.project-item');
+      
+      projectItems.forEach(project => {
+        project.addEventListener('mouseenter', () => {
+          project.style.transition = 'all 0.3s ease';
+        });
+        
+        project.addEventListener('click', () => {
+          // Visual feedback for "opening" project
+          project.style.transform = 'translateX(20px) scale(1.02)';
+          setTimeout(() => {
+            project.style.transform = 'translateX(10px)';
+          }, 200);
+        });
+      });
+    });
+
+    // Interactive terminal controls
+    document.addEventListener('DOMContentLoaded', () => {
+      const controls = document.querySelectorAll('.control');
+      
+      controls.forEach(control => {
+        control.addEventListener('click', () => {
+          if (control.classList.contains('close')) {
+            // Simulate minimize effect
+            document.querySelector('.terminal-container').style.transform = 'scale(0.9)';
+            setTimeout(() => {
+              document.querySelector('.terminal-container').style.transform = 'scale(1)';
+            }, 300);
+          } else if (control.classList.contains('minimize')) {
+            // Simulate minimize to taskbar
+            document.querySelector('.terminal-container').style.transform = 'translateY(20px) scale(0.95)';
+            setTimeout(() => {
+              document.querySelector('.terminal-container').style.transform = 'translateY(0) scale(1)';
+            }, 300);
+          } else if (control.classList.contains('maximize')) {
+            // Simulate fullscreen toggle
+            const container = document.querySelector('.terminal-container');
+            if (container.style.maxWidth === '100vw') {
+              container.style.maxWidth = '1200px';
+              container.style.margin = '20px auto';
+            } else {
+              container.style.maxWidth = '100vw';
+              container.style.margin = '0';
+            }
+          }
+        });
+      });
+    });
+
+    // Enhanced typing sound simulation with visual feedback
+    document.addEventListener('keydown', (e) => {
       const cursor = document.querySelector('.cursor');
       if (cursor) {
         cursor.style.background = 'var(--yellow)';
+        cursor.style.transform = 'scale(1.2)';
         setTimeout(() => {
           cursor.style.background = 'var(--green)';
+          cursor.style.transform = 'scale(1)';
         }, 100);
       }
+      
+      // Create typing particles
+      if (Math.random() > 0.7) {
+        createTypingParticle();
+      }
+    });
+
+    // Create typing particle effect
+    function createTypingParticle() {
+      const particle = document.createElement('div');
+      particle.style.position = 'fixed';
+      particle.style.width = '4px';
+      particle.style.height = '4px';
+      particle.style.background = 'var(--green)';
+      particle.style.borderRadius = '50%';
+      particle.style.pointerEvents = 'none';
+      particle.style.zIndex = '1000';
+      
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      
+      particle.style.left = x + 'px';
+      particle.style.top = y + 'px';
+      
+      document.body.appendChild(particle);
+      
+      // Animate particle
+      particle.animate([
+        { transform: 'translate(0, 0) scale(0)', opacity: 1 },
+        { transform: `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(1)`, opacity: 0.5 },
+        { transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) scale(0)`, opacity: 0 }
+      ], {
+        duration: 1000,
+        easing: 'ease-out'
+      }).onfinish = () => particle.remove();
+    }
+
+    // Add CSS for ripple animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Contact link interactions
+    document.addEventListener('DOMContentLoaded', () => {
+      const contactLinks = document.querySelectorAll('.contact-link');
+      
+      contactLinks.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+          link.style.transform = 'translateX(5px) scale(1.05)';
+          link.style.textShadow = '0 0 10px var(--cyan)';
+        });
+        
+        link.addEventListener('mouseleave', () => {
+          link.style.transform = 'translateX(0) scale(1)';
+          link.style.textShadow = 'none';
+        });
+      });
     });
   </script>
 </body>
