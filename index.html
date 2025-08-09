@@ -50,6 +50,48 @@
   /* Improve font rendering */
   body, button { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 
+  /* Reading progress bar */
+  .reading-progress { position: fixed; top:0; left:0; height:4px; width:100%; background:rgba(255,255,255,0.05); z-index:2000; }
+  .reading-progress-bar { height:100%; width:0; background:linear-gradient(90deg,var(--green),var(--cyan)); transition:width 0.15s ease-out; box-shadow:0 0 6px var(--green); }
+
+  /* Command quick nav */
+  .command-nav { position:sticky; top:4px; display:flex; flex-wrap:wrap; gap:6px; background:rgba(1,4,9,0.85); padding:6px 12px; border-bottom:1px solid var(--border); backdrop-filter:blur(6px); z-index:100; }
+  .command-nav a { color:var(--muted); text-decoration:none; font-size:12px; padding:2px 8px; border:1px solid var(--border); border-radius:12px; transition:all .25s; line-height:1.2; }
+  .command-nav a:hover { color:var(--cyan); border-color:var(--cyan); box-shadow:0 0 8px rgba(68,255,255,0.3); }
+  .command-nav a.active { color:var(--bg); background:var(--cyan); border-color:var(--cyan); box-shadow:0 0 10px rgba(68,255,255,0.6); }
+
+  /* Rotating tagline */
+  .tagline { font-size:12px; color:var(--muted); margin-left:6px; opacity:0; transition:opacity .4s; }
+
+  /* In-view reveal enhancement */
+  .section { position:relative; }
+  .section.in-view::before { content:attr(data-cmd); position:absolute; top:-8px; right:4px; font-size:10px; color:var(--border); opacity:0.6; }
+  .section.in-view { filter:brightness(1); }
+  .section:not(.in-view) { filter:brightness(.8); }
+
+  /* Collapsible About */
+  .collapsible { position:relative; max-height:210px; overflow:hidden; transition:max-height .6s ease; }
+  .collapsible.is-collapsed { max-height:210px; }
+  .collapsible:not(.is-collapsed) { max-height:1000px; }
+  .collapsible-fade { position:absolute; left:0; right:0; bottom:0; height:50px; background:linear-gradient(to bottom, rgba(1,4,9,0), var(--terminal)); pointer-events:none; }
+  .collapsible:not(.is-collapsed) .collapsible-fade { display:none; }
+  .collapse-toggle { margin-top:6px; background:var(--card); border:1px solid var(--border); color:var(--cyan); padding:4px 10px; cursor:pointer; font-family:inherit; font-size:12px; border-radius:4px; transition:all .3s; }
+  .collapse-toggle:hover { background:var(--border); box-shadow:0 0 10px rgba(68,255,255,0.3); }
+
+  /* Copy email button */
+  .copy-email { background:var(--card); border:1px solid var(--border); color:var(--green); padding:4px 10px; cursor:pointer; font-size:12px; border-radius:4px; transition:all .3s; }
+  .copy-email:hover { background:var(--border); box-shadow:0 0 10px rgba(0,255,65,0.3); }
+  .copy-email:active { transform:scale(.92); }
+
+  /* Smooth scrolling */
+  html { scroll-behavior:smooth; }
+
+  /* Scrollbar styling (webkit) */
+  ::-webkit-scrollbar { width:10px; }
+  ::-webkit-scrollbar-track { background:#0a0d12; }
+  ::-webkit-scrollbar-thumb { background:linear-gradient(var(--card), var(--border)); border-radius:6px; }
+  ::-webkit-scrollbar-thumb:hover { background:linear-gradient(var(--cyan), var(--green)); }
+
     .terminal-container {
       max-width: 1200px;
       margin: 20px auto;
@@ -519,6 +561,7 @@
   </style>
 </head>
 <body>
+  <div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="readingProgressBar"></div></div>
   <div class="matrix-mode" id="matrixMode"></div>
   
   <div class="matrix-controls">
@@ -532,9 +575,23 @@
         <div class="control minimize" role="button" tabindex="0" aria-label="Simulate minimize"></div>
         <div class="control maximize" role="button" tabindex="0" aria-label="Toggle fullscreen"></div>
       </div>
-      <div class="terminal-title">ankit@dev-portfolio:~$</div>
+      <div class="terminal-title">ankit@dev-portfolio:~$ <span id="rotatingTagline" class="tagline"></span></div>
     </div>
 
+    <div class="command-nav" id="commandNav" aria-label="Quick section navigation">
+      <a href="#sec-whoami" data-target="sec-whoami">whoami</a>
+      <a href="#sec-about" data-target="sec-about">about.txt</a>
+      <a href="#sec-skills" data-target="sec-skills">skills/</a>
+      <a href="#sec-projects" data-target="sec-projects">projects.json</a>
+      <a href="#sec-roles" data-target="sec-roles">roles.txt</a>
+      <a href="#sec-future" data-target="sec-future">future_goals.md</a>
+      <a href="#sec-arch-skills" data-target="sec-arch-skills">architecture_skills/</a>
+      <a href="#sec-sec-arch" data-target="sec-sec-arch">security_architecture.txt</a>
+      <a href="#sec-arch-projects" data-target="sec-arch-projects">find architecture</a>
+      <a href="#sec-travel" data-target="sec-travel">travel</a>
+      <a href="#sec-values" data-target="sec-values">values</a>
+      <a href="#sec-contact" data-target="sec-contact">contact</a>
+    </div>
     <div class="terminal-body" role="main">
       <h1 class="sr-only">Ankit Kushwaha – Full Stack Developer | Security & AI Enthusiast</h1>
       <div class="header-ascii glitch floating" data-text="ANKIT KUSHWAHA" aria-hidden="true">
@@ -542,7 +599,7 @@
     █▀█ █░▀█ █░█ █ ░█░   █░█ █▄█ ▄█ █▀█ ▀▄▀▄▀ █▀█ █▀█ █▀█
       </div>
 
-      <div class="section fade-in">
+  <div class="section fade-in" id="sec-whoami" data-cmd="whoami">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command typing-effect">whoami</span>
         <div class="output">
 <span class="highlight">Full Stack Developer</span> | <span class="highlight">Bug Bounty Hunter</span> | <span class="highlight">AI Engineer</span> | <span class="highlight">Traveller</span>
@@ -557,9 +614,9 @@
         </div>
       </div>
 
-      <div class="section fade-in slide-in-left">
+      <div class="section fade-in slide-in-left" id="sec-about" data-cmd="cat about.txt">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">cat about.txt</span>
-        <div class="output">
+        <div class="output collapsible" id="aboutOutput" data-collapsed="true">
 <span class="section-title">About Me:</span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 I'm a passionate Full Stack Developer with 6+ years of experience across modern 
@@ -581,10 +638,12 @@ I'm also deeply passionate about AI/ML technologies, working with:
 Beyond core work, I'm a committed open-source contributor, mentor at tech 
 meetups and cybersecurity conferences. I believe in giving back to the 
 community through knowledge sharing and meaningful project contributions.
+<div class="collapsible-fade"></div>
+<button class="collapse-toggle" id="aboutToggle" aria-expanded="false" aria-controls="aboutOutput">[+] expand more</button>
         </div>
       </div>
 
-      <div class="section fade-in slide-in-right">
+  <div class="section fade-in slide-in-right" id="sec-skills" data-cmd="ls -la skills/">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">ls -la skills/</span>
         <div class="output">
 <span class="section-title">Technical Skills:</span>
@@ -606,7 +665,7 @@ community through knowledge sharing and meaningful project contributions.
         </div>
       </div>
 
-      <div class="section fade-in">
+  <div class="section fade-in" id="sec-projects" data-cmd="cat projects.json | jq '.'">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">cat projects.json | jq '.'</span>
         <div class="output">
 <span class="section-title">Notable Projects:</span>
@@ -651,7 +710,7 @@ community through knowledge sharing and meaningful project contributions.
         </div>
       </div>
 
-      <div class="section fade-in slide-in-left">
+  <div class="section fade-in slide-in-left" id="sec-roles" data-cmd="cat roles.txt">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">cat roles.txt</span>
         <div class="output">
 <span class="section-title">Current Roles:</span>
@@ -665,7 +724,7 @@ community through knowledge sharing and meaningful project contributions.
         </div>
       </div>
 
-      <div class="section fade-in slide-in-right">
+  <div class="section fade-in slide-in-right" id="sec-future" data-cmd="cat future_goals.md">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">cat future_goals.md</span>
         <div class="output">
 <span class="section-title">Future Career Goals:</span>
@@ -690,7 +749,7 @@ community through knowledge sharing and meaningful project contributions.
         </div>
       </div>
 
-      <div class="section fade-in slide-in-left">
+  <div class="section fade-in slide-in-left" id="sec-arch-skills" data-cmd="ls -la architecture_skills/">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">ls -la architecture_skills/</span>
         <div class="output">
 <span class="section-title">Architecture & Design Skills:</span>
@@ -712,7 +771,7 @@ community through knowledge sharing and meaningful project contributions.
         </div>
       </div>
 
-      <div class="section fade-in slide-in-right">
+  <div class="section fade-in slide-in-right" id="sec-sec-arch" data-cmd="cat security_architecture.txt">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">cat security_architecture.txt</span>
         <div class="output">
 <span class="section-title">Security Architecture Skills:</span>
@@ -734,7 +793,7 @@ community through knowledge sharing and meaningful project contributions.
         </div>
       </div>
 
-      <div class="section fade-in slide-in-left">
+  <div class="section fade-in slide-in-left" id="sec-arch-projects" data-cmd="find ./projects -name '*architecture*' -type f">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">find ./projects -name "*architecture*" -type f</span>
         <div class="output">
 <span class="section-title">Architecture-Focused Projects:</span>
@@ -771,7 +830,7 @@ community through knowledge sharing and meaningful project contributions.
         </div>
       </div>
 
-      <div class="section fade-in slide-in-right">
+  <div class="section fade-in slide-in-right" id="sec-travel" data-cmd="grep -r 'travel' ~/journey/">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">grep -r "travel" ~/journey/</span>
         <div class="output">
 <span class="section-title">Travel Journey & Cultural Exploration:</span>
@@ -794,7 +853,7 @@ connections across continents.
         </div>
       </div>
 
-      <div class="section fade-in">
+  <div class="section fade-in" id="sec-values" data-cmd="echo $VALUES">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">echo $VALUES</span>
         <div class="output">
 <span class="section-title">What I Care About:</span>
@@ -808,7 +867,7 @@ connections across continents.
         </div>
       </div>
 
-      <div class="section fade-in slide-in-left">
+  <div class="section fade-in slide-in-left" id="sec-contact" data-cmd="netstat -contact">
         <span class="prompt hover-glow">ankit@portfolio:~$</span> <span class="command">netstat -contact</span>
         <div class="output">
 <span class="section-title">Contact Information:</span>
@@ -817,7 +876,8 @@ connections across continents.
 <a href="https://www.linkedin.com/in/ankit1x01/" class="contact-link">📧 LinkedIn</a>
 <a href="https://www.instagram.com/ankit1x01/" class="contact-link">📸 Instagram</a>
 <a href="https://github.com/ankit1x01" class="contact-link">🐙 GitHub</a>
-<a href="mailto:you@example.com" class="contact-link">✉️ Email</a>
+<a href="mailto:you@example.com" class="contact-link" id="emailLink" data-email="you@example.com">✉️ Email</a>
+<button class="copy-email" id="copyEmail" aria-label="Copy email to clipboard">copy</button>
 </div>
         </div>
       </div>
@@ -989,7 +1049,103 @@ connections across continents.
       controlInteractions();
       typingParticles();
       contactLinkInteractions();
+      initTaglineRotator();
+      initScrollFeatures();
+      initCollapsible();
+      initCopyEmail();
     });
+
+    /* Rotating tagline for attention */
+    function initTaglineRotator(){
+      const tag = document.getElementById('rotatingTagline');
+      if(!tag) return;
+      const phrases = [
+        'building reliable systems',
+        'offensive + defensive mindset',
+        'scaling ideas into products',
+        'architecting secure clouds',
+        'agentic AI experimentation',
+        'geospatial & performance tuning'
+      ];
+      let i=0;
+      function cycle(){
+        tag.style.opacity=0;
+        setTimeout(()=>{ tag.textContent=phrases[i%phrases.length]; tag.style.opacity=1; i++; },300);
+      }
+      cycle();
+      setInterval(cycle,4000);
+    }
+
+    /* Reading progress + active section highlight + lazy reveal */
+    function initScrollFeatures(){
+      const bar = document.getElementById('readingProgressBar');
+      const sections = Array.from(document.querySelectorAll('.section'));
+      const navLinks = document.querySelectorAll('.command-nav a');
+      function updateProgress(){
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const p = docHeight>0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = p + '%';
+      }
+      window.addEventListener('scroll', updateProgress, {passive:true});
+      updateProgress();
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('in-view');
+            const id = entry.target.id;
+            navLinks.forEach(l=> l.classList.toggle('active', l.getAttribute('data-target')===id));
+          }
+        });
+      }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+      sections.forEach(sec => io.observe(sec));
+      navLinks.forEach(link => link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(link.getAttribute('data-target'));
+        if(target){
+          window.scrollTo({ top: target.offsetTop - 10, behavior: 'smooth' });
+        }
+      }));
+    }
+
+    /* Collapsible About */
+    function initCollapsible(){
+      const about = document.getElementById('aboutOutput');
+      const btn = document.getElementById('aboutToggle');
+      if(!about || !btn) return;
+      function update(){
+        const collapsed = about.getAttribute('data-collapsed') === 'true';
+        if(collapsed){
+          about.classList.add('is-collapsed');
+          btn.textContent='[+] expand more';
+          btn.setAttribute('aria-expanded','false');
+        } else {
+          about.classList.remove('is-collapsed');
+          btn.textContent='[-] collapse';
+          btn.setAttribute('aria-expanded','true');
+        }
+      }
+      btn.addEventListener('click', ()=>{ about.setAttribute('data-collapsed', about.getAttribute('data-collapsed')==='true' ? 'false':'true'); update(); });
+      update();
+    }
+
+    /* Copy email */
+    function initCopyEmail(){
+      const btn = document.getElementById('copyEmail');
+      const link = document.getElementById('emailLink');
+      if(!btn || !link) return;
+      btn.addEventListener('click', async () => {
+        const email = link.getAttribute('data-email');
+        try {
+          await navigator.clipboard.writeText(email);
+          btn.textContent='copied!';
+          setTimeout(()=>btn.textContent='copy',1500);
+        } catch(err){
+          btn.textContent='error';
+          setTimeout(()=>btn.textContent='copy',1500);
+        }
+      });
+    }
   </script>
   <script type="application/ld+json">{
     "@context": "https://schema.org",
