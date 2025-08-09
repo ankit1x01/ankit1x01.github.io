@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ankit Kushwaha - Full Stack Developer | Bug Bounty Hunter</title>
+  <meta name="description" content="Portfolio of Ankit Kushwaha – Full Stack Developer, Bug Bounty Hunter, AI Engineer, Security Architect aspirant, and Traveller. Showcasing projects, skills, security experience, and future goals.">
+  <meta name="theme-color" content="#0d1117">
+  <meta property="og:title" content="Ankit Kushwaha – Full Stack Developer & Security Enthusiast">
+  <meta property="og:description" content="Full Stack Development · Offensive Security · AI/LLMs · Architecture & Cloud · Travel & Culture">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/00000000?v=4">
+  <meta property="og:url" content="https://ankit1x01.dev/">
+  <link rel="canonical" href="https://ankit1x01.dev/" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
@@ -39,6 +47,9 @@
       overflow-x: hidden;
     }
 
+  /* Improve font rendering */
+  body, button { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
     .terminal-container {
       max-width: 1200px;
       margin: 20px auto;
@@ -69,6 +80,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
+  outline: none;
     }
 
     .control:hover {
@@ -78,6 +90,10 @@
 
     .control:active {
       transform: scale(0.9);
+    }
+
+    .control:focus-visible {
+      box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--cyan);
     }
 
     .close { background: var(--red); }
@@ -100,6 +116,9 @@
       color: var(--green);
       font-weight: 500;
     }
+
+  /* Visually-hidden utility for accessibility */
+  .sr-only { position: absolute; width: 1px; height: 1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); border:0; }
 
     .command {
       color: var(--blue);
@@ -412,6 +431,18 @@
       opacity: 0.1;
     }
 
+    /* Focus styles for interactive items */
+    .skill-item:focus-visible, .project-item:focus-visible, .contact-link:focus-visible, .matrix-toggle:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .glitch:before, .glitch:after { display: none; }
+    }
+
     .matrix-controls {
       position: fixed;
       top: 20px;
@@ -479,6 +510,12 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* Slightly tighter mobile skills layout */
+    @media (max-width: 480px) {
+      .skills-grid { gap:4px; }
+      .project-desc { font-size:12px; }
+    }
   </style>
 </head>
 <body>
@@ -489,17 +526,18 @@
   </div>
 
   <div class="terminal-container">
-    <div class="terminal-header">
-      <div class="terminal-controls">
-        <div class="control close"></div>
-        <div class="control minimize"></div>
-        <div class="control maximize"></div>
+    <div class="terminal-header" role="banner">
+      <div class="terminal-controls" aria-label="Window controls">
+        <div class="control close" role="button" tabindex="0" aria-label="Simulate close"></div>
+        <div class="control minimize" role="button" tabindex="0" aria-label="Simulate minimize"></div>
+        <div class="control maximize" role="button" tabindex="0" aria-label="Toggle fullscreen"></div>
       </div>
       <div class="terminal-title">ankit@dev-portfolio:~$</div>
     </div>
 
-    <div class="terminal-body">
-      <div class="header-ascii glitch floating" data-text="ANKIT KUSHWAHA">
+    <div class="terminal-body" role="main">
+      <h1 class="sr-only">Ankit Kushwaha – Full Stack Developer | Security & AI Enthusiast</h1>
+      <div class="header-ascii glitch floating" data-text="ANKIT KUSHWAHA" aria-hidden="true">
     ▄▀█ █▄░█ █▄▀ █ ▀█▀   █▄▀ █░█ █▀ █░█ █░█░█ ▄▀█ █░█ ▄▀█
     █▀█ █░▀█ █░█ █ ░█░   █░█ █▄█ ▄█ █▀█ ▀▄▀▄▀ █▀█ █▀█ █▀█
       </div>
@@ -796,275 +834,176 @@ connections across continents.
   </div>
 
   <script>
-    // Enhanced Matrix rain effect with more particles
+    /* Consolidated JS: performance, accessibility, reduced motion handling */
+    const matrixToggle = document.getElementById('matrixToggle');
+    const matrixMode = document.getElementById('matrixMode');
+    let matrixAnim = null;
+
     function createMatrixRain() {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      
-      const matrixMode = document.getElementById('matrixMode');
       matrixMode.appendChild(canvas);
-      
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      
-      const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
-      const matrixArray = matrix.split("");
-      
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      resize();
+      window.addEventListener('resize', resize);
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン".split("");
       const fontSize = 14;
-      const columns = canvas.width / fontSize;
-      const drops = [];
-      
-      for (let x = 0; x < columns; x++) {
-        drops[x] = Math.random() * -100;
+      let drops = [];
+      function initDrops(){
+        const columns = Math.floor(canvas.width / fontSize);
+        drops = Array.from({length: columns}, () => Math.random() * -100);
       }
-      
-      function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
+      initDrops();
+      window.addEventListener('resize', initDrops);
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let last = 0;
+      function frame(ts){
+        if (prefersReduced) return; // Skip heavy animation if reduced motion
+        if (ts - last < 50) { matrixAnim = requestAnimationFrame(frame); return; }
+        last = ts;
+        ctx.fillStyle = 'rgba(0,0,0,0.05)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
         ctx.fillStyle = '#00ff41';
         ctx.font = fontSize + 'px JetBrains Mono';
-        
-        for (let i = 0; i < drops.length; i++) {
-          const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
-          
-          // Add glow effect
-          ctx.shadowColor = '#00ff41';
-          ctx.shadowBlur = 10;
-          
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-          
-          // Reset shadow for performance
-          ctx.shadowBlur = 0;
-          
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-          }
-          drops[i]++;
+        for (let i=0;i<drops.length;i++) {
+          const text = chars[Math.floor(Math.random()*chars.length)];
+            ctx.shadowColor = '#00ff41';
+            ctx.shadowBlur = 10;
+            ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+            ctx.shadowBlur = 0;
+            if (drops[i]*fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
         }
+        matrixAnim = requestAnimationFrame(frame);
       }
-      
-      return setInterval(draw, 50);
+      matrixAnim = requestAnimationFrame(frame);
+      return () => { cancelAnimationFrame(matrixAnim); window.removeEventListener('resize', resize); };
     }
 
-    // Matrix mode toggle with sound effect simulation
-    let matrixInterval;
-    const matrixToggle = document.getElementById('matrixToggle');
-    const matrixMode = document.getElementById('matrixMode');
-    
-    matrixToggle.addEventListener('click', () => {
-      // Visual feedback
+    function toggleMatrix(){
       matrixToggle.style.transform = 'scale(0.9)';
-      setTimeout(() => {
-        matrixToggle.style.transform = 'scale(1)';
-      }, 100);
-
+      setTimeout(()=>matrixToggle.style.transform='scale(1)',100);
       if (matrixMode.classList.contains('active')) {
         matrixMode.classList.remove('active');
         matrixToggle.textContent = 'Matrix Mode';
-        if (matrixInterval) {
-          clearInterval(matrixInterval);
-          matrixMode.innerHTML = '';
-        }
+        if (matrixMode.firstChild) matrixMode.innerHTML = '';
       } else {
         matrixMode.classList.add('active');
         matrixToggle.textContent = 'Exit Matrix';
-        matrixInterval = createMatrixRain();
+        createMatrixRain();
       }
-    });
+    }
+    matrixToggle.addEventListener('click', toggleMatrix);
 
-    // Enhanced terminal boot animation with progressive reveal
-    document.addEventListener('DOMContentLoaded', () => {
+    function enhanceSections(){
       const terminalBody = document.querySelector('.terminal-body');
       const sections = document.querySelectorAll('.section');
-      
-      // Initial state
-      terminalBody.style.opacity = '1'; // Make immediately visible
-      
-      // Progressive section reveal with staggered timing
-      sections.forEach((section, index) => {
-        // Remove any conflicting opacity settings
+      terminalBody.style.opacity = '1';
+      sections.forEach((section, i) => {
         section.style.opacity = '1';
-        
-        // Set staggered animation delays
-        const animationDelay = (index * 0.1) + 's';
-        section.style.animationDelay = animationDelay;
-        
-        // Ensure animations trigger
+        section.style.animationDelay = (i * 0.1)+'s';
         section.style.animationFillMode = 'both';
       });
-    });
-
-    // Interactive skill items with click effects
-    document.addEventListener('DOMContentLoaded', () => {
-      const skillItems = document.querySelectorAll('.skill-item');
-      
-      skillItems.forEach(skill => {
-        skill.addEventListener('click', () => {
-          // Create ripple effect
-          const ripple = document.createElement('span');
-          ripple.style.position = 'absolute';
-          ripple.style.borderRadius = '50%';
-          ripple.style.background = 'rgba(199, 136, 255, 0.6)';
-          ripple.style.transform = 'scale(0)';
-          ripple.style.animation = 'ripple 0.6s linear';
-          ripple.style.left = '50%';
-          ripple.style.top = '50%';
-          ripple.style.width = '20px';
-          ripple.style.height = '20px';
-          ripple.style.marginLeft = '-10px';
-          ripple.style.marginTop = '-10px';
-          
-          skill.style.position = 'relative';
-          skill.appendChild(ripple);
-          
-          setTimeout(() => {
-            ripple.remove();
-          }, 600);
-        });
-      });
-    });
-
-    // Interactive project items with hover sound simulation
-    document.addEventListener('DOMContentLoaded', () => {
-      const projectItems = document.querySelectorAll('.project-item');
-      
-      projectItems.forEach(project => {
-        project.addEventListener('mouseenter', () => {
-          project.style.transition = 'all 0.3s ease';
-        });
-        
-        project.addEventListener('click', () => {
-          // Visual feedback for "opening" project
-          project.style.transform = 'translateX(20px) scale(1.02)';
-          setTimeout(() => {
-            project.style.transform = 'translateX(10px)';
-          }, 200);
-        });
-      });
-    });
-
-    // Interactive terminal controls
-    document.addEventListener('DOMContentLoaded', () => {
-      const controls = document.querySelectorAll('.control');
-      
-      controls.forEach(control => {
-        control.addEventListener('click', () => {
-          if (control.classList.contains('close')) {
-            // Simulate minimize effect
-            document.querySelector('.terminal-container').style.transform = 'scale(0.9)';
-            setTimeout(() => {
-              document.querySelector('.terminal-container').style.transform = 'scale(1)';
-            }, 300);
-          } else if (control.classList.contains('minimize')) {
-            // Simulate minimize to taskbar
-            document.querySelector('.terminal-container').style.transform = 'translateY(20px) scale(0.95)';
-            setTimeout(() => {
-              document.querySelector('.terminal-container').style.transform = 'translateY(0) scale(1)';
-            }, 300);
-          } else if (control.classList.contains('maximize')) {
-            // Simulate fullscreen toggle
-            const container = document.querySelector('.terminal-container');
-            if (container.style.maxWidth === '100vw') {
-              container.style.maxWidth = '1200px';
-              container.style.margin = '20px auto';
-            } else {
-              container.style.maxWidth = '100vw';
-              container.style.margin = '0';
-            }
-          }
-        });
-      });
-    });
-
-    // Enhanced typing sound simulation with visual feedback
-    document.addEventListener('keydown', (e) => {
-      const cursor = document.querySelector('.cursor');
-      if (cursor) {
-        cursor.style.background = 'var(--yellow)';
-        cursor.style.transform = 'scale(1.2)';
-        setTimeout(() => {
-          cursor.style.background = 'var(--green)';
-          cursor.style.transform = 'scale(1)';
-        }, 100);
-      }
-      
-      // Create typing particles
-      if (Math.random() > 0.7) {
-        createTypingParticle();
-      }
-    });
-
-    // Create typing particle effect
-    function createTypingParticle() {
-      const particle = document.createElement('div');
-      particle.style.position = 'fixed';
-      particle.style.width = '4px';
-      particle.style.height = '4px';
-      particle.style.background = 'var(--green)';
-      particle.style.borderRadius = '50%';
-      particle.style.pointerEvents = 'none';
-      particle.style.zIndex = '1000';
-      
-      const x = Math.random() * window.innerWidth;
-      const y = Math.random() * window.innerHeight;
-      
-      particle.style.left = x + 'px';
-      particle.style.top = y + 'px';
-      
-      document.body.appendChild(particle);
-      
-      // Animate particle
-      particle.animate([
-        { transform: 'translate(0, 0) scale(0)', opacity: 1 },
-        { transform: `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(1)`, opacity: 0.5 },
-        { transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) scale(0)`, opacity: 0 }
-      ], {
-        duration: 1000,
-        easing: 'ease-out'
-      }).onfinish = () => particle.remove();
+      // safety fallback
+      setTimeout(()=>sections.forEach(s=>{s.style.opacity='1'; s.style.transform='translateX(0)';}), 2000);
     }
 
-    // Add CSS for ripple animation
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes ripple {
-        to {
-          transform: scale(4);
-          opacity: 0;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-
-    // Contact link interactions
-    document.addEventListener('DOMContentLoaded', () => {
-      const contactLinks = document.querySelectorAll('.contact-link');
-      
-      contactLinks.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-          link.style.transform = 'translateX(5px) scale(1.05)';
-          link.style.textShadow = '0 0 10px var(--cyan)';
-        });
-        
-        link.addEventListener('mouseleave', () => {
-          link.style.transform = 'translateX(0) scale(1)';
-          link.style.textShadow = 'none';
-        });
+    function addSkillInteractions(){
+      document.querySelectorAll('.skill-item').forEach(skill => {
+        skill.setAttribute('tabindex','0');
+        skill.addEventListener('click', ripple);
+        skill.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); ripple.call(skill); }});
       });
+      function ripple(){
+        const ripple = document.createElement('span');
+        ripple.style.position='absolute'; ripple.style.borderRadius='50%'; ripple.style.background='rgba(199,136,255,0.6)';
+        ripple.style.transform='scale(0)'; ripple.style.animation='ripple 0.6s linear'; ripple.style.left='50%'; ripple.style.top='50%'; ripple.style.width='20px'; ripple.style.height='20px'; ripple.style.margin='-10px 0 0 -10px';
+        this.style.position='relative'; this.appendChild(ripple); setTimeout(()=>ripple.remove(),600);
+      }
+    }
 
-      // Fallback: Ensure all sections are visible after 3 seconds
-      setTimeout(() => {
-        const allSections = document.querySelectorAll('.section');
-        allSections.forEach(section => {
-          if (section.style.opacity !== '1') {
-            section.style.opacity = '1';
-            section.style.transform = 'translateX(0)';
-            section.style.transition = 'all 0.5s ease';
-          }
-        });
-      }, 3000);
+    function projectInteractions(){
+      document.querySelectorAll('.project-item').forEach(p => {
+        p.setAttribute('tabindex','0');
+        p.addEventListener('mouseenter', ()=> p.style.transition='all 0.3s ease');
+        const activate=()=>{ p.style.transform='translateX(20px) scale(1.02)'; setTimeout(()=>p.style.transform='translateX(10px)',200);} ;
+        p.addEventListener('click', activate);
+        p.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); activate(); }});
+      });
+    }
+
+    function controlInteractions(){
+      document.querySelectorAll('.control[role="button"]').forEach(c => {
+        c.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); c.click(); }});
+      });
+      const container = document.querySelector('.terminal-container');
+      document.querySelector('.control.close').addEventListener('click', ()=>{
+        container.style.transform='scale(0.9)'; setTimeout(()=>container.style.transform='scale(1)',300);
+      });
+      document.querySelector('.control.minimize').addEventListener('click', ()=>{
+        container.style.transform='translateY(20px) scale(0.95)'; setTimeout(()=>container.style.transform='translateY(0) scale(1)',300);
+      });
+      document.querySelector('.control.maximize').addEventListener('click', ()=>{
+        if (container.style.maxWidth==='100vw'){ container.style.maxWidth='1200px'; container.style.margin='20px auto'; }
+        else { container.style.maxWidth='100vw'; container.style.margin='0'; }
+      });
+    }
+
+    function typingParticles(){
+      document.addEventListener('keydown', () => {
+        const cursor = document.querySelector('.cursor');
+        if (cursor){ cursor.style.background='var(--yellow)'; cursor.style.transform='scale(1.2)'; setTimeout(()=>{cursor.style.background='var(--green)'; cursor.style.transform='scale(1)';},100);}        
+        if (Math.random()>0.7) createTypingParticle();
+      });
+    }
+    function createTypingParticle(){
+      const particle=document.createElement('div');
+      Object.assign(particle.style,{position:'fixed',width:'4px',height:'4px',background:'var(--green)',borderRadius:'50%',pointerEvents:'none',zIndex:'1000'});
+      const x=Math.random()*window.innerWidth, y=Math.random()*window.innerHeight; particle.style.left=x+'px'; particle.style.top=y+'px';
+      document.body.appendChild(particle);
+      particle.animate([
+        {transform:'translate(0,0) scale(0)',opacity:1},
+        {transform:`translate(${Math.random()*100-50}px,${Math.random()*100-50}px) scale(1)`,opacity:0.5},
+        {transform:`translate(${Math.random()*200-100}px,${Math.random()*200-100}px) scale(0)`,opacity:0}
+      ],{duration:1000,easing:'ease-out'}).onfinish=()=>particle.remove();
+    }
+
+    function contactLinkInteractions(){
+      document.querySelectorAll('.contact-link').forEach(link => {
+        link.addEventListener('mouseenter', ()=>{link.style.transform='translateX(5px) scale(1.05)'; link.style.textShadow='0 0 10px var(--cyan)';});
+        link.addEventListener('mouseleave', ()=>{link.style.transform='translateX(0) scale(1)'; link.style.textShadow='none';});
+      });
+    }
+
+    // Ripple keyframes injection
+    (function(){
+      const style=document.createElement('style');
+      style.textContent='@keyframes ripple { to { transform: scale(4); opacity: 0; } }';
+      document.head.appendChild(style);
+    })();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      enhanceSections();
+      addSkillInteractions();
+      projectInteractions();
+      controlInteractions();
+      typingParticles();
+      contactLinkInteractions();
     });
   </script>
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ankit Kushwaha",
+    "jobTitle": "Full Stack Developer / Bug Bounty Hunter / AI Engineer",
+    "url": "https://ankit1x01.dev/",
+    "sameAs": [
+      "https://www.linkedin.com/in/ankit1x01/",
+      "https://github.com/ankit1x01",
+      "https://www.instagram.com/ankit1x01/"
+    ],
+    "knowsAbout": ["Web Development","Offensive Security","AI","LLMs","Cloud Architecture","System Design"],
+    "nationality": "Indian"
+  }</script>
 </body>
 </html>
